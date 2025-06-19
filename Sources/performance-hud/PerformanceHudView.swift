@@ -2,6 +2,7 @@ import SwiftUI
 import Combine
 import QuartzCore
 import MachO
+import Charts
 
 @Observable
 public final class PerfMonitor {
@@ -46,10 +47,17 @@ public final class PerfMonitor {
 }
 
 public struct PerfHUD: View {
+	public enum ChartType {
+		case path, chart
+	}
 	private let monitor = PerfMonitor.shared
+	
 	let position: CGPoint
-	public init(position: CGPoint = .init(x: 0, y: 0)) {
+	let chartType: ChartType
+	
+	public init(position: CGPoint = .init(x: 0, y: 0), chartType: ChartType = .chart) {
 		self.position = position
+		self.chartType = chartType
 	}
 	public var body: some View {
 		HStack(spacing: 8) {
@@ -61,12 +69,19 @@ public struct PerfHUD: View {
 			.font(.caption2)
 			.frame(width: 44)
 			
-			Sparkline(values: monitor.history)
-				.frame(width: 60, height: 30)
-				.overlay(HStack { 
-					Text("\(monitor.fps)").font(.subheadline.bold())
-					Text("fps").font(.caption)
-				})
+			Group {
+				switch chartType {
+				case .chart:
+					SparklineChart(values: monitor.history)
+				case .path:
+					SparklinePath(values: monitor.history)
+				}
+			}
+			.frame(width: 60, height: 30)
+			.overlay(HStack(spacing: 4) { 
+				Text("\(monitor.fps)").font(.subheadline.bold())
+				Text("fps").font(.caption)
+			})
 		}
 		.padding(6)
 		.background(Color(.systemBackground))
@@ -78,7 +93,25 @@ public struct PerfHUD: View {
 	}
 }
 
-struct Sparkline: View {
+struct SparklineChart: View {
+	let values: [Int]
+	
+	var body: some View {
+		Chart {
+			ForEach(Array(values.enumerated()), id: \.offset) { i, v in
+				LineMark(
+					x: .value("t", i),
+					y: .value("v", v)
+				)
+			}
+		}
+		.chartXAxis(.hidden)
+		.chartYAxis(.hidden)
+		.chartPlotStyle { $0.padding(.zero) }
+	}
+}
+
+struct SparklinePath: View {
 	let values: [Int]
 	var body: some View {
 		GeometryReader { geo in
