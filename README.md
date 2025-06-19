@@ -1,4 +1,4 @@
-# Performance Hud for RN
+# Performance Hud for SwiftUI
 
 ![CleanShot 2025-06-19 at 09 29 09@2x](https://github.com/user-attachments/assets/566fe067-d86e-4177-8959-eb47c18f47f6)
 
