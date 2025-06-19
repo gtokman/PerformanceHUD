@@ -4,15 +4,15 @@
 import PackageDescription
 
 let package = Package(
-    name: "PerformanceHUD",
+	name: "PerformanceHUD",
 	platforms: [.iOS(.v17)],
-    products: [
-        .library(
-            name: "performance-hud",
-            targets: ["performance-hud"]),
-    ],
-    targets: [
-        .target(
-            name: "performance-hud"),
-    ]
+	products: [
+		.library(
+			name: "PerformanceHUD",
+			targets: ["PerformanceHUD"]),
+	],
+	targets: [
+		.target(
+			name: "PerformanceHUD"),
+	]
 )
