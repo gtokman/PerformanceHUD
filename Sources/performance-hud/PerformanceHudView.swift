@@ -9,7 +9,7 @@ public struct PerfHUD: View {
 	let position: CGPoint
 	let chartType: ChartType
 	
-	public init(position: CGPoint = .init(x: 0, y: 0), chartType: ChartType = .chart) {
+	public init(position: CGPoint = .init(x: 0, y: 0), chartType: ChartType = .path) {
 		self.position = position
 		self.chartType = chartType
 	}

@@ -16,6 +16,7 @@ public final class PerfMonitor {
 	
 	var fps: Int = 0
 	var ramMB: Double = 0
+	var thermalState: String = "Nominal"
 	var history: [Int] = Array(repeating: 0, count: 30)
 	
 	private var link: CADisplayLink?
@@ -49,5 +50,13 @@ public final class PerfMonitor {
 		
 		history.append(fps)
 		if history.count > 30 { history.removeFirst() }
+		
+		thermalState = switch ProcessInfo.processInfo.thermalState {
+		case .nominal: "Nominal"
+		case .fair: "Fair"
+		case .serious: "Serious"
+		case .critical: "Critical"
+		@unknown default: "Unknown"
+		}
 	}
 }
