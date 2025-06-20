@@ -10,7 +10,7 @@ Tiny overlay for SwiftUI that shows live FPS and memory so you can spot frame dr
 import PerformanceHUD
 
 
-.overlay {
-    PerfHUD() // init also exposes position and chart type
+.overlay(alignment: .topLeading) {
+    PerformanceHudView() // init also exposes position and chart type
 }
 ```
