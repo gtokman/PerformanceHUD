@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct PerfHUD: View {
+public struct PerformanceHudView: View {
 	public enum ChartType {
 		case path, chart
 	}
@@ -49,6 +49,6 @@ public struct PerfHUD: View {
 
 #Preview {
 	NavigationStack {
-		PerfHUD()
+		PerformanceHudView()
 	}
 }
