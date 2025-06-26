@@ -14,3 +14,5 @@ import PerformanceHUD
     PerformanceHudView() // init also exposes position and chart type
 }
 ```
+
+MIT
