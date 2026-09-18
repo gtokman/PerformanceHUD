@@ -16,6 +16,8 @@ public final class PerfMonitor {
 	
 	var fps: Int = 0
 	var ramMB: Double = 0
+	var remainingMB: Double = 0
+	var remainingPercent: Double = 0
 	var thermalState: String = "Nominal"
 	var history: [Int] = Array(repeating: 0, count: 30)
 	
@@ -46,6 +48,12 @@ public final class PerfMonitor {
 		}
 		if kr == KERN_SUCCESS {
 			ramMB = Double(info.phys_footprint) / 1_048_576
+
+			let remainingBytes = Double(info.limit_bytes_remaining)
+			remainingMB = remainingBytes / 1_048_576
+
+			let limitBytes = remainingBytes + Double(info.phys_footprint)
+			remainingPercent = limitBytes > 0 ? max(0, min(100, remainingBytes / limitBytes * 100)) : 0
 		}
 		
 		history.append(fps)

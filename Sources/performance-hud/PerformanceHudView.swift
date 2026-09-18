@@ -16,9 +16,10 @@ public struct PerformanceHudView: View {
 	public var body: some View {
 		HStack(spacing: 8) {
 			VStack {
-				Text("RAM")
-				Text(String(format: "%.0f", monitor.ramMB))
+				Text("RAM left")
+				Text(String(format: "%.0f", monitor.remainingMB))
 				Text("MB")
+				Text(String(format: "%.0f%%", monitor.remainingPercent))
 			}
 			.font(.caption2)
 			.frame(width: 44)
